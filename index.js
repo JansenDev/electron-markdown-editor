@@ -1,5 +1,14 @@
-const { app, BrowserWindow, Menu, globalShortcut, ipcRenderer, ipcMain } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  globalShortcut,
+  ipcRenderer,
+  ipcMain,
+  dialog,
+} = require("electron");
 const path = require("path");
+const fs = require("fs");
 const menu = require("./menu");
 
 function createWindow() {
@@ -13,7 +22,7 @@ function createWindow() {
       // webSecurity: false,
       // allowRunningInsecureContent: true,
       // preload: path.join(__dirname, 'preload.js')
-      worldSafeExecuteJavaScript: true
+      worldSafeExecuteJavaScript: true,
     },
     // autoHideMenuBar:true
   });
@@ -25,25 +34,48 @@ function createWindow() {
     console.log("CmdOrCtrl+R global pressed!");
   });
 
+  globalShortcut.register("CmdOrCtrl+s", () => {
+    const window = BrowserWindow.getFocusedWindow();
+    window.webContents.send("editor-event", "save");
+  });
+
+  globalShortcut.register("CmdOrCtrl+o", () => {
+    const window = BrowserWindow.getFocusedWindow();
+    const options = {
+      title: "Open markdown file",
+      filters: [
+        { name: "markdown", extensions: ["md", "txt"] },
+        { name: "text", extensions: ["txt", "md"] },
+      ],
+      properties: ["showHiddenFiles"],
+    };
+
+    dialog.showOpenDialog(window, options).then((dialogResult) => {
+      if (dialogResult.filePaths &&  dialogResult.filePaths.length > 0) {
+        const data = fs.readFileSync(dialogResult.filePaths[0], {
+          encoding: "utf-8",
+        });
+        window.webContents.send("open", data);
+      }
+    });
+  });
+
   win.loadFile("index.html");
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
 
-// ipcMain.handle('editor-reply', ()=>'Page Loaded');
 // ipcMain.handle('ping', () => 'pong');
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
-})
-
-
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
 
 //
 require("electron-reload")(__dirname, {

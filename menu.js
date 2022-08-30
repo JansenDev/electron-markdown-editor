@@ -1,5 +1,6 @@
-const { Menu, shell } = require("electron");
+const { Menu, shell, dialog } = require("electron");
 const { ipcMain, BrowserWindow } = require("electron");
+const fs = require("fs");
 
 const template = [
   {
@@ -24,6 +25,13 @@ const template = [
           window.webContents.send("editor-event", "toggle-bold");
         },
       },
+      {
+        label: "Tiggle Italic",
+        click: () => {
+          const window = BrowserWindow.getFocusedWindow();
+          window.webContents.send("editor-event", "toggle-italic");
+        },
+      },
     ],
   },
 ];
@@ -44,10 +52,62 @@ if (process.env.DEBUG) {
   });
 }
 
-// ^Respuesta del canal 'editor-replay'
+ipcMain.on("save", (event, arg) => {
+  const window = BrowserWindow.getFocusedWindow();
+  const options = {
+    title: "Save markdown file",
+    filters: [
+      {
+        name: "markdown",
+        extensions: ["md"],
+      },
+    ],
+    properties: ["showHiddenFiles"],
+  };
+
+  dialog.showSaveDialog(window, options).then((dialogResult) => {
+    if (!!dialogResult.filePath) {
+      fs.writeFileSync(dialogResult.filePath, arg, { encoding: "utf-8" });
+      console.log("Saved!");
+    }
+  });
+  //   if (err) console.log(err);
+  // });
+});
+
+// ipcMain.on("open", (event, _) => {
+//   const window = BrowserWindow.getFocusedWindow();
+//   const options = {
+//     title: "Open markdown file",
+//     filters: [
+//       { name: "markdown", extensions: ".md" },
+//       { name: "text", extensions: ".txt" },
+//     ],
+//     properties: ["showHiddenFiles"],
+//   };
+
+//   dialog.showOpenDialog(window, options).then((dialogResult) => {
+//     console.log(dialogResult.filePaths);
+
+//     if (!!dialogResult.filePaths) {
+//       const data = fs.readFileSync(dialogResult.filePaths[0], {
+//         encoding: "utf-8",
+//       });
+//       console.log(data);
+//     }
+//   });
+// });
+
+// ^Respuesta del channel 'editor-replay'
 ipcMain.on("editor-reply", (event, arg) => {
   console.log(`Received reply from web page: ${arg}`);
   //  console.log(event);
+});
+
+// ^Respuesta del invoke con channel 'test'
+ipcMain.handle("test", (event, arg) => {
+  console.log("INVOCADO: ", arg.text);
+  console.log("arg: ", arg);
 });
 
 // @process.platform: (Linux|windows|masOs)
