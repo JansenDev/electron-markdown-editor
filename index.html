@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/simplemde/dist/simplemde.min.css"
+    />
+    <script src="./node_modules/simplemde/dist/simplemde.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"> -->
+    <title>Markdown Editor</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      .CodeMirror {
+        flex: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Markdown Editor</h1>
+    <button id="tools">Tools</button>
+    <textarea id="editor"></textarea>
+    <script src="./rendered.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "markdown-editor",
+  "version": "1.0.0",
+  "description": "Markdown editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "set DEBUG=true& electron .",
+    "build:macos": " electron-builder --macos --dir"
+  },
+  "keywords": [],
+  "author": "Jhonatan Segura Galindo",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^20.1.0",
+    "electron-builder": "^23.3.3"
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1",
+    "simplemde": "^1.11.2"
+  }
+}
