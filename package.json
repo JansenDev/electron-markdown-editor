@@ -7,13 +7,17 @@
     "start": " electron .",
     "dev": "set DEBUG=true& electron .",
     "build:macos": " electron-builder --macos --dir",
-    "publish:dist": "set GH_TOKEN=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&& electron-builder -w -p always",
+    "publish:dist": "npm run clean & electron-builder build --win -p always",
     "publish": "build --mac -p always",
     "clean": "rm -dr dist && ls"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JansenDev/electron-markdown-editor.git"
+  },
   "build": {
     "productName":"Markdown Editor",
-    "appId": "com.pe.markdown-editor",
+    "appId": "com.pe.markdown.editor",
     "publish": {
       "provider": "github",
       "owner": "JansenDev",
@@ -22,11 +26,12 @@
     "win": {
       "target": [
         "nsis",
-        "msi"
+        "msi",
+        "zip"
       ],
       "icon": "./assets/icono.png",
       "verifyUpdateCodeSignature": false,
-      "publisherName": "Some Company - Stored in cert file"
+      "publisherName": "Some Company"
     }
   },
   "keywords": [],
