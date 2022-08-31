@@ -8,7 +8,7 @@ const {
   dialog,
 } = require("electron");
 const path = require("path");
-const fs = require("fs");
+const methods = require("./utils/methods");
 const menu = require("./menu");
 
 function createWindow() {
@@ -35,29 +35,11 @@ function createWindow() {
   });
 
   globalShortcut.register("CmdOrCtrl+s", () => {
-    const window = BrowserWindow.getFocusedWindow();
-    window.webContents.send("editor-event", "save");
+    methods.saveFile();
   });
 
   globalShortcut.register("CmdOrCtrl+o", () => {
-    const window = BrowserWindow.getFocusedWindow();
-    const options = {
-      title: "Open markdown file",
-      filters: [
-        { name: "markdown", extensions: ["md", "txt"] },
-        { name: "text", extensions: ["txt", "md"] },
-      ],
-      properties: ["showHiddenFiles"],
-    };
-
-    dialog.showOpenDialog(window, options).then((dialogResult) => {
-      if (dialogResult.filePaths &&  dialogResult.filePaths.length > 0) {
-        const data = fs.readFileSync(dialogResult.filePaths[0], {
-          encoding: "utf-8",
-        });
-        window.webContents.send("open", data);
-      }
-    });
+    methods.openFile();
   });
 
   win.loadFile("index.html");

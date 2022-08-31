@@ -1,6 +1,7 @@
 const { Menu, shell, dialog } = require("electron");
 const { ipcMain, BrowserWindow } = require("electron");
 const fs = require("fs");
+const methods = require("./utils/methods");
 
 const template = [
   {
@@ -30,6 +31,25 @@ const template = [
         click: () => {
           const window = BrowserWindow.getFocusedWindow();
           window.webContents.send("editor-event", "toggle-italic");
+        },
+      },
+    ],
+  },
+  {
+    label: "File",
+    submenu: [
+      {
+        label: "Save",
+        accelerator: "CmdOrCtrl+s",
+        click: () => {
+          methods.saveFile();
+        },
+      },
+      {
+        label: "Open",
+        accelerator: "CmdOrCtrl+o",
+        click: () => {
+          methods.openFile();
         },
       },
     ],
@@ -74,29 +94,6 @@ ipcMain.on("save", (event, arg) => {
   //   if (err) console.log(err);
   // });
 });
-
-// ipcMain.on("open", (event, _) => {
-//   const window = BrowserWindow.getFocusedWindow();
-//   const options = {
-//     title: "Open markdown file",
-//     filters: [
-//       { name: "markdown", extensions: ".md" },
-//       { name: "text", extensions: ".txt" },
-//     ],
-//     properties: ["showHiddenFiles"],
-//   };
-
-//   dialog.showOpenDialog(window, options).then((dialogResult) => {
-//     console.log(dialogResult.filePaths);
-
-//     if (!!dialogResult.filePaths) {
-//       const data = fs.readFileSync(dialogResult.filePaths[0], {
-//         encoding: "utf-8",
-//       });
-//       console.log(data);
-//     }
-//   });
-// });
 
 // ^Respuesta del channel 'editor-replay'
 ipcMain.on("editor-reply", (event, arg) => {
