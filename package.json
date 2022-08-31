@@ -7,7 +7,7 @@
     "start": " electron .",
     "dev": "set DEBUG=true& electron .",
     "build:macos": " electron-builder --macos --dir",
-    "publish:dist": "set GH_TOKEN=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& electron-builder -w -p always",
+    "publish:dist": "set GH_TOKEN=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&& electron-builder -w -p always",
     "publish": "build --mac -p always",
     "clean": "rm -dr dist"
   },
