@@ -1,9 +1,4 @@
-const {
-  app,
-  BrowserWindow,
-  Menu,
-  globalShortcut
-} = require("electron");
+const { app, BrowserWindow, Menu, globalShortcut } = require("electron");
 const path = require("path");
 const methods = require("./utils/methods");
 const menu = require("./menu");
@@ -21,9 +16,9 @@ function createWindow() {
       // preload: path.join(__dirname, 'preload.js')
       worldSafeExecuteJavaScript: true,
     },
-    // autoHideMenuBar:true
+    autoHideMenuBar: process.env.DEBUG ? false : true,
   });
-  if(process.env.DEBUG ) win.webContents.openDevTools();
+  if (process.env.DEBUG) win.webContents.openDevTools();
   Menu.setApplicationMenu(menu);
 
   // https://www.electronjs.org/docs/latest/api/accelerator
