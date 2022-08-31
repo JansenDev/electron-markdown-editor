@@ -5,37 +5,6 @@ const methods = require("./utils/methods");
 
 const template = [
   {
-    role: "help",
-    submenu: [
-      {
-        label: "About Editor Component",
-        click() {
-          shell.openExternal("https://simplemde.com/");
-        },
-      },
-    ],
-  },
-  {
-    label: "Format",
-    submenu: [
-      {
-        label: "Toggle Bold",
-        click() {
-          // ^Sending messages to the renderer process
-          const window = BrowserWindow.getFocusedWindow();
-          window.webContents.send("editor-event", "toggle-bold");
-        },
-      },
-      {
-        label: "Tiggle Italic",
-        click: () => {
-          const window = BrowserWindow.getFocusedWindow();
-          window.webContents.send("editor-event", "toggle-italic");
-        },
-      },
-    ],
-  },
-  {
     label: "File",
     submenu: [
       {
@@ -50,6 +19,39 @@ const template = [
         accelerator: "CmdOrCtrl+o",
         click: () => {
           methods.openFile();
+        },
+      },
+    ],
+  },
+  {
+    label: "Format",
+    submenu: [
+      {
+        label: "Toggle Bold",
+        accelerator:"CmdOrCtrl+b",
+        click() {
+          // ^Sending messages to the renderer process
+          const window = BrowserWindow.getFocusedWindow();
+          window.webContents.send("editor-event", "toggle-bold");
+        },
+      },
+      {
+        label: "Tiggle Italic",
+        accelerator:"CmdOrCtrl+i",
+        click: () => {
+          const window = BrowserWindow.getFocusedWindow();
+          window.webContents.send("editor-event", "toggle-italic");
+        },
+      },
+    ],
+  },
+  {
+    role: "help",
+    submenu: [
+      {
+        label: "About Editor Component",
+        click() {
+          shell.openExternal("https://simplemde.com/");
         },
       },
     ],
