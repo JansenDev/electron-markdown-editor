@@ -7,9 +7,9 @@
     "start": " electron .",
     "dev": "set DEBUG=true& electron .",
     "build:macos": " electron-builder --macos --dir",
-    "publish:dist": "set GH_TOKEN=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&& electron-builder -w -p always",
+    "publish:dist": "set GH_TOKEN=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&& electron-builder -w -p always",
     "publish": "build --mac -p always",
-    "clean": "rm -dr dist"
+    "clean": "rm -dr dist && ls"
   },
   "build": {
     "productName":"Markdown Editor",
@@ -24,7 +24,9 @@
         "nsis",
         "msi"
       ],
-      "icon": "./assets/icono.png"
+      "icon": "./assets/icono.png",
+      "verifyUpdateCodeSignature": false,
+      "publisherName": "Some Company - Stored in cert file"
     }
   },
   "keywords": [],
