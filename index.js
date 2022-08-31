@@ -30,9 +30,9 @@ function createWindow() {
   Menu.setApplicationMenu(menu);
 
   // https://www.electronjs.org/docs/latest/api/accelerator
-  globalShortcut.register("ctrl+r", () => {
-    console.log("CmdOrCtrl+R global pressed!");
-  });
+  // globalShortcut.register("ctrl+r", () => {
+  //   console.log("CmdOrCtrl+R global pressed!");
+  // });
 
   globalShortcut.register("CmdOrCtrl+s", () => {
     methods.saveFile();

@@ -88,7 +88,7 @@ ipcMain.on("save", (event, arg) => {
   dialog.showSaveDialog(window, options).then((dialogResult) => {
     if (!!dialogResult.filePath) {
       fs.writeFileSync(dialogResult.filePath, arg, { encoding: "utf-8" });
-      console.log("Saved!");
+      // console.log("Saved!");
     }
   });
   //   if (err) console.log(err);
@@ -97,15 +97,15 @@ ipcMain.on("save", (event, arg) => {
 
 // ^Respuesta del channel 'editor-replay'
 ipcMain.on("editor-reply", (event, arg) => {
-  console.log(`Received reply from web page: ${arg}`);
+  // console.log(`Received reply from web page: ${arg}`);
   //  console.log(event);
 });
 
 // ^Respuesta del invoke con channel 'test'
-ipcMain.handle("test", (event, arg) => {
-  console.log("INVOCADO: ", arg.text);
-  console.log("arg: ", arg);
-});
+// ipcMain.handle("test", (event, arg) => {
+//   console.log("INVOCADO: ", arg.text);
+//   console.log("arg: ", arg);
+// });
 
 // @process.platform: (Linux|windows|masOs)
 // aix

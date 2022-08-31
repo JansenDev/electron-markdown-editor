@@ -1,6 +1,5 @@
 const { ipcRenderer } = require("electron");
 const path = require("path");
-const { encode } = require("punycode");
 
 const editor = new SimpleMDE({
   element: document.getElementById("editor"),
@@ -17,8 +16,6 @@ const editor = new SimpleMDE({
 editor.toggleSideBySide();
 
 ipcRenderer.on("editor-event", (event, arg) => {
-  console.log(arg);
-  console.log(typeof arg);
 
   // event.sender.send("editor-reply", `Received ${arg}`);
   if (arg === "toggle-bold") {
@@ -48,7 +45,6 @@ function dropHandler(event) {
       const isMarkdownOrText = matchMarkdownOrText.length > 0;
 
       if (isMarkdownOrText || file.type === "text/markdown") {
-        console.log("entró");
         let reader = new FileReader();
         reader.readAsText(file, "utf-8");
         reader.onload = (e) => {
