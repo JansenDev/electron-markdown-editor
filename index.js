@@ -2,10 +2,7 @@ const {
   app,
   BrowserWindow,
   Menu,
-  globalShortcut,
-  ipcRenderer,
-  ipcMain,
-  dialog,
+  globalShortcut
 } = require("electron");
 const path = require("path");
 const methods = require("./utils/methods");
@@ -26,7 +23,7 @@ function createWindow() {
     },
     // autoHideMenuBar:true
   });
-  win.webContents.openDevTools();
+  if(process.env.DEBUG ) win.webContents.openDevTools();
   Menu.setApplicationMenu(menu);
 
   // https://www.electronjs.org/docs/latest/api/accelerator

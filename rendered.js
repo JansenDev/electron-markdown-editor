@@ -1,5 +1,4 @@
 const { ipcRenderer } = require("electron");
-const path = require("path");
 
 const editor = new SimpleMDE({
   element: document.getElementById("editor"),
