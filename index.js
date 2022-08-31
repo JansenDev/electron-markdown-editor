@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, globalShortcut } = require("electron");
 const path = require("path");
 const methods = require("./utils/methods");
 const menu = require("./menu");
+const { autoUpdater } = require("electron-updater");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -15,10 +16,12 @@ function createWindow() {
       // allowRunningInsecureContent: true,
       // preload: path.join(__dirname, 'preload.js')
       worldSafeExecuteJavaScript: true,
+
     },
+    icon:"./assets/icono.png",
     autoHideMenuBar: process.env.DEBUG ? false : true,
   });
-  if (process.env.DEBUG) win.webContents.openDevTools();
+  if (process.env.DEBUG){ win.webContents.openDevTools();}
   Menu.setApplicationMenu(menu);
 
   // https://www.electronjs.org/docs/latest/api/accelerator
@@ -35,13 +38,14 @@ function createWindow() {
   });
 
   win.loadFile("index.html");
+  if (process.env.DEBUG)  {autoUpdater.checkForUpdatesAndNotify();}
 }
 
 app.whenReady().then(() => {
   createWindow();
 
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {createWindow();}
   });
 });
 
@@ -52,6 +56,8 @@ app.on("window-all-closed", () => {
 });
 
 //
-require("electron-reload")(__dirname, {
-  electron: path.join(__dirname, "node_modules", ".bin", "electron"),
-});
+if (process.env.DEBUG) {
+  require("electron-reload")(__dirname, {
+    electron: path.join(__dirname, "node_modules", ".bin", "electron"),
+  });
+}

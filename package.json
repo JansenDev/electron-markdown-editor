@@ -6,7 +6,26 @@
   "scripts": {
     "start": " electron .",
     "dev": "set DEBUG=true& electron .",
-    "build:macos": " electron-builder --macos --dir"
+    "build:macos": " electron-builder --macos --dir",
+    "publish:dist": "set GH_TOKEN=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& electron-builder -w -p always",
+    "publish": "build --mac -p always",
+    "clean": "rm -dr dist"
+  },
+  "build": {
+    "productName":"Markdown Editor",
+    "appId": "com.pe.markdown-editor",
+    "publish": {
+      "provider": "github",
+      "owner": "JansenDev",
+      "repo": "electron-markdown-editor"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ],
+      "icon": "./assets/icono.png"
+    }
   },
   "keywords": [],
   "author": "Jhonatan Segura Galindo",
@@ -17,6 +36,7 @@
   },
   "dependencies": {
     "electron-reload": "^2.0.0-alpha.1",
+    "electron-updater": "^5.2.1",
     "simplemde": "^1.11.2"
   }
 }
