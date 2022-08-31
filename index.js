@@ -38,7 +38,7 @@ function createWindow() {
   });
 
   win.loadFile("index.html");
-  if (process.env.DEBUG)  {autoUpdater.checkForUpdatesAndNotify();}
+  if (!process.env.DEBUG)  {autoUpdater.checkForUpdatesAndNotify();}
 }
 
 app.whenReady().then(() => {
