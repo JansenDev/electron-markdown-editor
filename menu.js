@@ -54,6 +54,9 @@ const template = [
           shell.openExternal("https://simplemde.com/");
         },
       },
+      {
+        role: "about",
+      },
     ],
   },
 ];
