@@ -15,9 +15,9 @@
     "type": "git",
     "url": "https://github.com/JansenDev/electron-markdown-editor.git"
   },
+  "productName":"Markdown Editor",
   "build": {
-    "productName":"Markdown Editor",
-    "appId": "com.pe.markdown.editor",
+    "appId": "com.markdown-editor",
     "publish": {
       "provider": "github",
       "owner": "JansenDev",
@@ -29,9 +29,7 @@
         "msi",
         "zip"
       ],
-      "icon": "./assets/icono.png",
-      "verifyUpdateCodeSignature": false,
-      "publisherName": "Some Company"
+      "icon": "./assets/icono.png"
     }
   },
   "keywords": [],
