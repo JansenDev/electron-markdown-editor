@@ -1,4 +1,4 @@
-# electron-markdown-editor
+# Basic markdown editor
 
 Basic markdown-editor, open, save, drag and drop file and autoHide menu.
 
